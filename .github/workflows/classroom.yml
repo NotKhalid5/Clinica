@@ -23,9 +23,21 @@ jobs:
         command: java Level1Test
         timeout: 2
         max-score: 20
+    - name: Level 2 - Patient Class
+      id: level-2-patient-class
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Level 2 - Patient Class
+        setup-command: curl -O https://raw.githubusercontent.com/itsjustej/MP1Test/refs/heads/main/Level2Test.java
+          && javac -d . $(find . -name "Appointment.java") $(find . -name "Patient.java")
+          Level2Test.java
+        command: java Level2Test
+        timeout: 2
+        max-score: 25
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         LEVEL-1-APPOINTMENT-CLASS_RESULTS: "${{steps.level-1-appointment-class.outputs.result}}"
+        LEVEL-2-PATIENT-CLASS_RESULTS: "${{steps.level-2-patient-class.outputs.result}}"
       with:
-        runners: level-1-appointment-class
+        runners: level-1-appointment-class,level-2-patient-class
