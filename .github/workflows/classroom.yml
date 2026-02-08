@@ -1,0 +1,31 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: 'Level 1: Appointment Class'
+      id: level-1-appointment-class
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Level 1: Appointment Class'
+        setup-command: curl -O https://raw.githubusercontent.com/itsjustej/MP1Test/refs/heads/main/Level1Test.java
+          && javac Appointment.java Level1Test.java
+        command: java Level1Test
+        timeout: 2
+        max-score: 20
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        LEVEL-1-APPOINTMENT-CLASS_RESULTS: "${{steps.level-1-appointment-class.outputs.result}}"
+      with:
+        runners: level-1-appointment-class
