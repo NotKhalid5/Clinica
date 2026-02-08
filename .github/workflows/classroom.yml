@@ -44,11 +44,22 @@ jobs:
         command: java Level3Test
         timeout: 2
         max-score: 30
+    - name: Level 4 - Selection Sort Validation
+      id: level-4-selection-sort-validation
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Level 4 - Selection Sort Validation
+        setup-command: bash curl -f -L -o Level4Test.java https://raw.githubusercontent.com/itsjustej/MP1Test/refs/heads/main/Level4Test.java
+          && javac -d . $(find . -name "*.java") Level4Test.java
+        command: java Level4Test
+        timeout: 2
+        max-score: 15
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         LEVEL-1-APPOINTMENT-CLASS_RESULTS: "${{steps.level-1-appointment-class.outputs.result}}"
         LEVEL-2-PATIENT-CLASS_RESULTS: "${{steps.level-2-patient-class.outputs.result}}"
         LEVEL-3-MEDICAL-OFFICE_RESULTS: "${{steps.level-3-medical-office.outputs.result}}"
+        LEVEL-4-SELECTION-SORT-VALIDATION_RESULTS: "${{steps.level-4-selection-sort-validation.outputs.result}}"
       with:
-        runners: level-1-appointment-class,level-2-patient-class,level-3-medical-office
+        runners: level-1-appointment-class,level-2-patient-class,level-3-medical-office,level-4-selection-sort-validation
