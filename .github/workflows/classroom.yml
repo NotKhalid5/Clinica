@@ -19,7 +19,7 @@ jobs:
       with:
         test-name: 'Level 1: Appointment Class'
         setup-command: curl -O https://raw.githubusercontent.com/itsjustej/MP1Test/refs/heads/main/Level1Test.java
-          && javac $(find . -name "Appointment.java") Level1Test.java
+          && javac -d . $(find . -name "Appointment.java") Level1Test.java
         command: java Level1Test
         timeout: 2
         max-score: 20
