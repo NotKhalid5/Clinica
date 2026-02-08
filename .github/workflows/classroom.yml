@@ -49,7 +49,7 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Level 4 - Selection Sort Validation
-        setup-command: bash curl -f -L -o Level4Test.java https://raw.githubusercontent.com/itsjustej/MP1Test/refs/heads/main/Level4Test.java
+        setup-command: curl -f -L -o Level4Test.java https://raw.githubusercontent.com/itsjustej/MP1Test/refs/heads/main/Level4Test.java
           && javac -d . $(find . -name "*.java") Level4Test.java
         command: java Level4Test
         timeout: 2
