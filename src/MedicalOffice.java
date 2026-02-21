@@ -81,16 +81,22 @@ public class MedicalOffice {
 
                 for (int j = 0; j < numAppointments; j++) { // nested loop so 4 each patient an appt is set
                     // again reading n each line as per the ip file format converting data type using Wrapper class parsing as needed
-                    int apptPatientID = Integer.parseInt(infile.nextLine());
-                    String apptDate = infile.nextLine();
-                    String physician = infile.nextLine();
-                    double height = Double.parseDouble(infile.nextLine());
-                    double weight = Double.parseDouble(infile.nextLine());
-                    double temperature = Double.parseDouble(infile.nextLine());
-                    int pulse = Integer.parseInt(infile.nextLine());
-                    int bpSystolic = Integer.parseInt(infile.nextLine());
-                    int bpDiastolic = Integer.parseInt(infile.nextLine());
-                    String notes = infile.nextLine();
+                    String line = infile.nextLine();
+
+                    // since input is of the format x*y*z read the whole line and split
+                    String [] parts = line.split("\\*"); // split the parts into a Str array
+
+                    // assign each field to the corresponding element in the partsStr array
+                    int apptPatientID = Integer.parseInt(parts[0]);
+                    String apptDate = parts[1];
+                    String physician = parts[2];
+                    double height = Double.parseDouble(parts[3]);
+                    double weight = Double.parseDouble(parts[4]);
+                    double temperature = Double.parseDouble(parts[5]);
+                    int pulse = Integer.parseInt(parts[6]);
+                    int bpSystolic = Integer.parseInt(parts[7]);
+                    int bpDiastolic = Integer.parseInt(parts[8]);
+                    String notes = parts[9];
 
                     Appointment appointment = new Appointment( // Appointment obj w/ fields invokes Appointment constr. w/ args
                             apptPatientID,
@@ -126,7 +132,7 @@ public class MedicalOffice {
 
             writer.println(physicians.size());
             for (String physician : physicians) {
-                writer.println(physicians);
+                writer.println(physician);
             }
 
             writer.println(patients.size());
@@ -143,16 +149,19 @@ public class MedicalOffice {
                 for (int i = 0; i < patient.getAppointmentSize(); i++) { // uses patient method to indicate how many times to run
                     Appointment appt = patient.getAppointment(i);
 
-                    writer.println(appt.getPatientID());
-                    writer.println(appt.getPatientID());
-                    writer.println(appt.getPhysician());
-                    writer.println(appt.getHeight());
-                    writer.println(appt.getWeight());
-                    writer.println(appt.getTemperature());
-                    writer.println(appt.getPulse());
-                    writer.println(appt.getBpDiastolic());
-                    writer.println(appt.getBpDiastolic());
-                    writer.println(appt.getNotes());
+                    writer.println(
+                            appt.getPatientID() + "*" +
+                            appt.getApptDate() + "*" +
+                            appt.getPhysician() + "*" +
+                            appt.getHeight() + "*" +
+                            appt.getWeight() + "*" +
+                            appt.getTemperature() + "*" +
+                            appt.getPulse() + "*" +
+                            appt.getBpSystolic() + "*" +
+                            appt.getBpDiastolic() + "*" +
+                            appt.getNotes()
+                    );
+
                 }
             }
             writer.close();
