@@ -47,14 +47,14 @@ public class Patient {
     public String getPrimaryPhysician() {return primaryPhysician;}
     public void setPrimaryPhysician(String primaryPhysician) {this.primaryPhysician = primaryPhysician;}
 
-    public int getNumAppointment() {return appointments.size();}
+    public int getAppointmentSize() {return appointments.size();}
     public Appointment getAppointment(int index) {return appointments.get(index);}
     public void setAppointment (int index, Appointment appointment) {appointments.set(index, appointment);}
     public void addAppointment(Appointment appointment) {appointments.add(appointment);}
     public Appointment removeAppointment(int index) {return appointments.remove(index);}
 
     public String toString() {
-        String newLine = System.getProperties("line.separator");
+        String newLine = System.getProperty("line.separator");
 
         String result = patientID + newLine
                 + firstName + newLine
