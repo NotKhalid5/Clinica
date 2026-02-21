@@ -46,11 +46,14 @@ public class MedicalOffice {
 
         // try - catch in case file intended to b read DNE
         try {
+            // Opens the input file n preps 2 read structured data n the
+            // exact order def'd by the assignment's required file format.
             Scanner infile = new Scanner(new File(infileName));
 
             physicians.clear(); // clear old data
             patients.clear(); // clear old data
 
+            // 1st ln of file containing med prac name
             practiceName = infile.nextLine();
 
             int numPhysicians = Integer.parseInt(infile.nextLine()); // from input file format wk that val should b read as an int so wk how many times to run ts loop 4 ts Office's group odf physicians
@@ -59,9 +62,9 @@ public class MedicalOffice {
                 physicians.add(infile.nextLine()); // add each physician to physicians ArrayList<>()
             }
 
-            int numPatients = Integer.parseInt(infile.nextLine()); // from input file wk that is val should b read as an int so wk how many times to run ts loop 4 ts patient
+            int numPatients = Integer.parseInt(infile.nextLine()); // from input file wk that is val should b read as an int so wk how many times to run ts loop based on tot # of patient records
 
-            for (int i = 0; i < numPatients; i++) {
+            for (int i = 0; i < numPatients; i++) { // For each patient, read the demographic information in the exact order specified by the file format
                 // read n each line as per the ip file format converting data type using Wrapper class parsing as needed
                 int patientID = Integer.parseInt(infile.nextLine());
                 String firstName = infile.nextLine(); // alr read as Str
@@ -77,13 +80,14 @@ public class MedicalOffice {
                         dob,
                         primaryPhysician);
 
+                // number of appointment if this specific patients
                 int numAppointments = Integer.parseInt(infile.nextLine());// from input file wk that is val should b read as an int so wk how many times to run ts loop 4 ts patient
 
                 for (int j = 0; j < numAppointments; j++) { // nested loop so 4 each patient an appt is set
                     // again reading n each line as per the ip file format converting data type using Wrapper class parsing as needed
                     String line = infile.nextLine();
 
-                    // since input is of the format x*y*z read the whole line and split
+                    // since input is of the format x*y*z read the whole line and split the whole line into parts at the *
                     String [] parts = line.split("\\*"); // split the parts into a Str array
 
                     // assign each field to the corresponding element in the partsStr array
@@ -110,33 +114,37 @@ public class MedicalOffice {
                             bpDiastolic,
                             notes
                     ); // put appt fields inside to call constructor with args
+
                     patient.addAppointment(appointment);
                 }
 
+                // Once all appointments for a patient are read the fully constr. Patient object is added to the Medical Office patient list
                 patients.add(patient);
             }
 
-            infile.close();
+            infile.close(); // Close the Scanner to releasae the file resource
         }
-        catch(java.io.FileNotFoundException e ) {
-            System.out.println("Error reading file: " + e);
+        catch(java.io.FileNotFoundException e ) { // error catching for if File Not Found
+            System.out.println("Error: " + e);
             System.exit(-1);
         }
     }
 
     public void saveMedicalOfficeData(String outfileName) {
         try{
-            PrintWriter writer = new PrintWriter(outfileName); //
+            PrintWriter writer = new PrintWriter(outfileName); // Creates a PrintWriter obj 2 write structured data 2 the output file n the same format as the input file
 
-            writer.println(practiceName);
+            writer.println(practiceName); // 1st ln is prac name
 
+            // Write the # of physicians followed by each physician name on its own ln
             writer.println(physicians.size());
             for (String physician : physicians) {
                 writer.println(physician);
             }
 
-            writer.println(patients.size());
+            writer.println(patients.size()); // write the # of patients so the file can later reconstruct the correct # of records
 
+            // For each patient, write demographic information n the exact order as per the input format
             for (Patient patient : patients) { // enhanced 4 loop allows us 2 run ts 4 each object stored n the patients Array List w/out knowing exactly how many that is
                 writer.println(patient.getPatientID());
                 writer.println(patient.getFirstName());
@@ -144,11 +152,13 @@ public class MedicalOffice {
                 writer.println(patient.getGender());
                 writer.println(patient.getDateOfBirth());
                 writer.println(patient.getPrimaryPhysician());
-                writer.println(patient.getAppointmentSize());
+                writer.println(patient.getAppointmentSize()); // Write # of appointments belonging to ts patient
 
                 for (int i = 0; i < patient.getAppointmentSize(); i++) { // uses patient method to indicate how many times to run
+                    // Each appointment is written as a single ln w/ fields separated by '*' to match the required file format so file can b read again w/out errors
                     Appointment appt = patient.getAppointment(i);
 
+                    // Write the # of appointment belonging to ts specific patient
                     writer.println(
                             appt.getPatientID() + "*" +
                             appt.getApptDate() + "*" +
@@ -161,10 +171,9 @@ public class MedicalOffice {
                             appt.getBpDiastolic() + "*" +
                             appt.getNotes()
                     );
-
                 }
             }
-            writer.close();
+            writer.close(); // close the writer to ensure all data is flushed and properly saved 2 the output file
         }
         catch(Exception e) {
             System.out.println("Error: " + e);
@@ -207,16 +216,22 @@ public class MedicalOffice {
 
     @Override
     public String toString() {
+        // Retrieves the system-specific ln separator to ensure the output format works correctly on any OS
         String separator = System.getProperty("line.separator");
+
+        //Start building the string rep w/ the prac name as the 1st ln
         String result = practiceName + separator;
 
+        // Append each physician name 2 the result string separating each entry w/ the sys ln sep
         for (String physician : physicians) {
             result += physician + separator;
         }
 
+        // Append the str rep of each patient; Each Patient obj's tsString() method is called which includes its appts
         for (Patient patient : patients) {
             result += patient.toString() + separator;
         }
-        return result;
+
+        return result; // return the fully constrd str rep of the MedicalOffice obj
     }
 }
