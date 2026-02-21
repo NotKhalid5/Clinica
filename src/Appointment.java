@@ -23,6 +23,19 @@ public class Appointment {
         notes = null;
     }
 
+    public Appointment(int patientID, String apptDate, String physician, double height, double weight, double temperature, int pulse, int bpSystolic, int bpDiastolic, String notes) {
+        this.patientID = patientID;
+        this.apptDate = apptDate;
+        this.physician = physician;
+        this.height = height;
+        this.weight = weight;
+        this.temperature = temperature;
+        this.pulse = pulse;
+        this.bpSystolic = bpSystolic;
+        this.bpDiastolic = bpDiastolic;
+        this.notes = notes;
+    }
+
     public int getPatientID() {return patientID;}
 
     public void setPatientID(int ID) {this.patientID = ID;}
