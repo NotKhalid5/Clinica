@@ -238,10 +238,11 @@ public class MedicalOffice {
     }
 
     // sort methods can't b private if they r accessed by a diff class
-    // these methods modify existing ArrayLists
+    // thus store the private class info in a public method accessed n main as per the unit test
+    // (these methods modify existing ArrayLists)
 
     // Sort patients alphabetically by last name with first names used as secondary comparisons
-    public void sortPatients() {
+    private void sortPatients() {
         Collections.sort(patients, new Comparator<Patient>() {
             @Override
             public int compare(Patient p1, Patient p2) {
@@ -255,7 +256,12 @@ public class MedicalOffice {
     }
 
     // Sorts physician list alphabetically; alr stored a last, first so default sorting orders by last name
-    public void sortPhysicians() {
+    private void sortPhysicians() {
         Collections.sort(physicians, String.CASE_INSENSITIVE_ORDER);
+    }
+
+    public void sortData() {
+        sortPhysicians();
+        sortPatients();
     }
 }

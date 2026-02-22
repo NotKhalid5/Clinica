@@ -6,8 +6,7 @@ public class Main {
 
         // Call sorting methods b4 displaying or saving so output appear in alph order
         // sort Array Lists
-        office.sortPhysicians();
-        office.sortPatients();
+        office.sortData();
 
         // Display
         System.out.println("Sorted Medical Office Data:");
