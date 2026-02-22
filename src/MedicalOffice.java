@@ -3,6 +3,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MedicalOffice {
     // encapsulated fields
@@ -227,11 +229,33 @@ public class MedicalOffice {
             result += physician + separator;
         }
 
-        // Append the str rep of each patient; Each Patient obj's tsString() method is called which includes its appts
+        // Append the str rep of each patient; Each Patient obj's toString() method is called which includes its appts
         for (Patient patient : patients) {
             result += patient.toString() + separator;
         }
 
         return result; // return the fully constrd str rep of the MedicalOffice obj
+    }
+
+    // sort methods can't b private if they r accessed by a diff class
+    // these methods modify existing ArrayLists
+
+    // Sort patients alphabetically by last name with first names used as secondary comparisons
+    public void sortPatients() {
+        Collections.sort(patients, new Comparator<Patient>() {
+            @Override
+            public int compare(Patient p1, Patient p2) {
+                int lastCompare = p1.getLastName().compareToIgnoreCase(p2.getLastName());
+                if (lastCompare != 0) {
+                    return lastCompare;
+                }
+                return p1.getFirstName().compareToIgnoreCase(p2.getFirstName());
+            }
+        });
+    }
+
+    // Sorts physician list alphabetically; alr stored a last, first so default sorting orders by last name
+    public void sortPhysicians() {
+        Collections.sort(physicians, String.CASE_INSENSITIVE_ORDER);
     }
 }
