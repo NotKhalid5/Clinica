@@ -8,9 +8,9 @@
 
     <top> <!--top border of th -->
         <VBox spacing="10"> <!-- functionally setSpacing() of the vertical layout container by accessing the VBox spacing property -->
-            <Label text="Medica Office"/> <!-- accesses text property of Label object-->
+            <Label text="Medical Office"/> <!-- accesses text property of Label object-->
             <ComboBox fx:id="cmbPatients"/> <!-- uses the self-closing element (/>) -->
-            <Button text="View Appointments"/>
+            <Button text="View Appointments" onAction="#handleViewAppointments"/>
         </VBox>
     </top>
 
@@ -20,9 +20,9 @@
 
     <bottom> <!-- bottom of display -->
         <HBox spacing="10"> <!-- functionally setSpacing() of the horizontal layout container -->
-            <Button text="Add Patient"/> <!-- accesses text property of Button object -->
-            <Button text="Add Appointment"/>
-            <Button text="Exit"/>
+            <Button text="Add Patient" onAction="#handleAddPatient"/> <!-- accesses text property of Button object -->
+            <Button text="Add Appointment" onAction="#handleAddAppointment"/>
+            <Button text="Exit" onAction="#handleExit"/>
         </HBox>
     </bottom>
 
