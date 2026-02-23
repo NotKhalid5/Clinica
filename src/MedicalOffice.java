@@ -58,17 +58,17 @@ public class MedicalOffice {
             // 1st ln of file containing med prac name
             practiceName = infile.nextLine();
 
-            int numPhysicians = Integer.parseInt(infile.nextLine()); // from input file format wk that val should b read as an int so wk how many times to run ts loop 4 ts Office's group odf physicians
+            int numPhysicians = Integer.parseInt(infile.nextLine().trim()); // from input file format wk that val should b read as an int so wk how many times to run ts loop 4 ts Office's group odf physicians
 
             for (int i = 0; i < numPhysicians; i++) {
                 physicians.add(infile.nextLine()); // add each physician to physicians ArrayList<>()
             }
 
-            int numPatients = Integer.parseInt(infile.nextLine()); // from input file wk that is val should b read as an int so wk how many times to run ts loop based on tot # of patient records
+            int numPatients = Integer.parseInt(infile.nextLine().trim()); // from input file wk that is val should b read as an int so wk how many times to run ts loop based on tot # of patient records
 
             for (int i = 0; i < numPatients; i++) { // For each patient, read the demographic information in the exact order specified by the file format
                 // read n each line as per the ip file format converting data type using Wrapper class parsing as needed
-                int patientID = Integer.parseInt(infile.nextLine());
+                int patientID = Integer.parseInt(infile.nextLine().trim());
                 String firstName = infile.nextLine(); // alr read as Str
                 String lastName = infile.nextLine();
                 char gender = infile.nextLine().trim().charAt(0); // trim strips the line of spaces ensuring the character is moved to the first index and charAt(0) tells the OS to treat the String @ that idx as a char
@@ -83,26 +83,31 @@ public class MedicalOffice {
                         primaryPhysician);
 
                 // number of appointment if this specific patients
-                int numAppointments = Integer.parseInt(infile.nextLine());// from input file wk that is val should b read as an int so wk how many times to run ts loop 4 ts patient
+                int numAppointments = Integer.parseInt(infile.nextLine().trim());// from input file wk that is val should b read as an int so wk how many times to run ts loop 4 ts patient
 
                 for (int j = 0; j < numAppointments; j++) { // nested loop so 4 each patient an appt is set
                     // again reading n each line as per the ip file format converting data type using Wrapper class parsing as needed
                     String line = infile.nextLine();
 
                     // since input is of the format x*y*z read the whole line and split the whole line into parts at the *
-                    String [] parts = line.split("\\*"); // split the parts into a Str array
+                    String [] parts = line.split("\\*", -1); // split the parts into a Str array
 
+                    if (parts.length != 10) {
+                        System.out.println("Invalid appointment format: " + line);
+                        continue;
+                    }
                     // assign each field to the corresponding element in the partsStr array
-                    int apptPatientID = Integer.parseInt(parts[0]);
-                    String apptDate = parts[1];
-                    String physician = parts[2];
-                    double height = Double.parseDouble(parts[3]);
-                    double weight = Double.parseDouble(parts[4]);
-                    double temperature = Double.parseDouble(parts[5]);
-                    int pulse = Integer.parseInt(parts[6]);
-                    int bpSystolic = Integer.parseInt(parts[7]);
-                    int bpDiastolic = Integer.parseInt(parts[8]);
-                    String notes = parts[9];
+                    // + trim each value b4 parsing to avoid NumberFormatException
+                    int apptPatientID = Integer.parseInt(parts[0].trim());
+                    String apptDate = parts[1].trim();
+                    String physician = parts[2].trim();
+                    double height = Double.parseDouble(parts[3].trim());
+                    double weight = Double.parseDouble(parts[4].trim());
+                    double temperature = Double.parseDouble(parts[5].trim());
+                    int pulse = Integer.parseInt(parts[6].trim());
+                    int bpSystolic = Integer.parseInt(parts[7].trim());
+                    int bpDiastolic = Integer.parseInt(parts[8].trim());
+                    String notes = parts[9].trim();
 
                     Appointment appointment = new Appointment( // Appointment obj w/ fields invokes Appointment constr. w/ args
                             apptPatientID,

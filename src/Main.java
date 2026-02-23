@@ -1,8 +1,17 @@
-public class Main {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    public static void main (String [] args) {
-        MedicalOffice office = new MedicalOffice(); // declare and initialize MedicalOffice obj by invoking MedOff no-arg constr.
-        office.readMedicalOfficeData(args[0]);
+public class Main extends Application{
+
+    private MedicalOffice office; // declare MedicalOffice obj
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        // initialize MedicalOffice obj by invoking MedOff no-arg constr.
+        office = new MedicalOffice();
+        office.readMedicalOfficeData("medicalDataSmall.txt"); // passedd input file n as arg
 
         // Call sorting methods b4 displaying or saving so output appear in alph order
         // sort Array Lists
@@ -12,7 +21,19 @@ public class Main {
         System.out.println("Sorted Medical Office Data:");
         System.out.println(office);
 
-        office.saveMedicalOfficeData(args[1]);
+        // Load FXML
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("MainView.fxml"));
+
+        Scene scene = new Scene(loader.load());
+
+        stage.setTitle("Medical Office");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main (String [] args) {
+        launch(args); // JavaFX
     }
 
 }
