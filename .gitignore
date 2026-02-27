@@ -1,0 +1,53 @@
+# ======================
+# Compiled Java files
+# ======================
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# ======================
+# Build directories
+# ======================
+bin/
+build/
+out/
+target/
+
+# ======================
+# Logs
+# ======================
+*.log
+
+# ======================
+# IDE files
+# ======================
+
+# IntelliJ / JetBrains
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# NetBeans
+nbproject/private/
+build/
+dist/
+
+# ======================
+# OS files
+# ======================
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
