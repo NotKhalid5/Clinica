@@ -12,7 +12,7 @@ public class Main extends Application{
     public void start(Stage stage) throws Exception {
         // initialize MedicalOffice obj by invoking MedOff no-arg constr.
         office = new MedicalOffice();
-        office.readMedicalOfficeData("medicalDataSmall.txt"); // passedd input file n as arg
+        office.readMedicalOfficeData("medicalDataSmall.txt"); // passed input file n as arg
 
         // Call sorting methods b4 displaying or saving so output appear in alph order
         // sort Array Lists

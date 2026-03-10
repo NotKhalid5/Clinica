@@ -39,6 +39,19 @@ public class Appointment {
         this.notes = notes;
     }
 
+    // constr. w/ non-notes field
+    public Appointment(int patientID, String apptDate, String physician, double height, double weight, double temperature, int pulse, int bpSystolic, int bpDiastolic) {
+        this.patientID = patientID;
+        this.apptDate = apptDate;
+        this.physician = physician;
+        this.height = height;
+        this.weight = weight;
+        this.temperature = temperature;
+        this.pulse = pulse;
+        this.bpSystolic = bpSystolic;
+        this.bpDiastolic = bpDiastolic;
+    }
+
     // Patient ID getters and setters
     public int getPatientID() {return patientID;}
     public void setPatientID(int ID) {this.patientID = ID;}

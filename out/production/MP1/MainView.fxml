@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?> <!-- allows u 2 build disp -->
+<?import javafx.scene.control.*?> <!-- connects visual elms of the disp 2 acc functions -->
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="MainController"> <!-- Access/create JavaFX BorderPane object -->
+
+    <top> <!--top border of th -->
+        <VBox spacing="10"> <!-- functionally setSpacing() of the vertical layout container by accessing the VBox spacing property -->
+            <Label text="Medical Office"/> <!-- accesses text property of Label object-->
+            <ComboBox fx:id="cmbPatients"/> <!-- uses the self-closing element (/>) -->
+            <Button text="View Appointments" onAction="#handleViewAppointments"/>
+        </VBox>
+    </top>
+
+    <center> <!-- center of display -->
+        <TableView fx:id="tblAppointments"/>
+    </center>
+
+    <bottom> <!-- bottom of display -->
+        <HBox spacing="10"> <!-- functionally setSpacing() of the horizontal layout container -->
+            <Button text="Add Patient" onAction="#handleAddPatient"/> <!-- accesses text property of Button object -->
+            <Button text="Add Appointment" onAction="#handleAddAppointment"/>
+            <Button text="Exit" onAction="#handleExit"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
